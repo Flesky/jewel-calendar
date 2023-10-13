@@ -30,13 +30,13 @@ function App() {
   const calendarDays = Array.from({ length: 42 }, (_, i) => {
     const firstDayOfMonth = month.startOf('month').day()
 
-    // Properties that might be useful. Delete whichever you don't need
+    // Properties that you might need.
     const isPreviousMonth = i < firstDayOfMonth
     const isCurrentMonth =
       i >= firstDayOfMonth && i < month.daysInMonth() + firstDayOfMonth
     const isNextMonth = !isPreviousMonth && !isCurrentMonth
 
-    // The dayjs object returns information about the current day. You can use this to query eventsForTheDay.
+    // The dayjs object returns information about the current day. Learn more here: https://day.js.org
     let dayjsObject
     if (isPreviousMonth) {
       dayjsObject = month.startOf('month').subtract(firstDayOfMonth - i, 'day')
@@ -46,8 +46,9 @@ function App() {
 
     const isToday = dayjsObject.isSame(dayjs(), 'day')
 
-    // The number of the day
+    // The number and string (YYYY-MM-DD) representations of the day. You can use this to query events for the day.
     const number = dayjsObject.date()
+    const string = dayjsObject.format('YYYY-MM-DD')
 
     // The eventsForTheDay for the day. Use custom logic to fetch eventsForTheDay here. Remember to return an empty array if there are no eventsForTheDay.
     const events = exampleEvents[dayjsObject.format('YYYY-MM-DD')] || []
@@ -55,6 +56,7 @@ function App() {
     return {
       key: i,
       number,
+      string,
       events,
       isToday,
       isPreviousMonth,
@@ -67,7 +69,7 @@ function App() {
     calendarDays.slice(i * 7, i * 7 + 7),
   )
 
-  const actions = () => (
+  const renderActions = () => (
     <div className="grid items-center">
       <div className="col-start-1 row-start-1 flex justify-start">
         <div className="flex">
@@ -125,7 +127,7 @@ function App() {
     </div>
   )
 
-  const headers = () => (
+  const renderHeaders = () => (
     <thead className="table-header-group">
       <tr className="table-row">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
@@ -137,10 +139,10 @@ function App() {
     </thead>
   )
 
-  const eventsForTheDay = (events) => {
+  const renderEventsByDay = (events) => {
     if (!events.length) return null
 
-    // Limit the number of eventsForTheDay to 3. You can change this to whatever you want. Suggested 3 for UI uniformity.
+    // Limit the number of events to be displayed (suggested 2 for UI uniformity). You can change this to whatever you want.
     const displayLimit = 2
     if (events.length > displayLimit)
       events = [
@@ -159,16 +161,26 @@ function App() {
     )
   }
 
+  // Selects the day. You can use this to navigate to a different page.
+  // The parameter is a string in YYYY-MM-DD format.
+  const goToDay = (day: string) => {
+    alert(day)
+  }
+
   return (
     <div className="p-4">
-      {actions()}
+      {renderActions()}
       <table className="mt-3 table w-full table-fixed border-collapse flex-col border">
-        {headers()}
+        {renderHeaders()}
         <tbody className="table-row-group">
           {calendarWeeks.map((day, key) => (
             <tr key={key} className="table-row">
               {day.map((day) => (
-                <td key={day.number} className="table-cell border">
+                <td
+                  onClick={() => goToDay(day.string)}
+                  key={day.number}
+                  className="table-cell cursor-pointer border"
+                >
                   <div
                     className={
                       'flex h-28 flex-col p-0.5' +
@@ -183,7 +195,7 @@ function App() {
                     >
                       {day.number}
                     </div>
-                    {eventsForTheDay(day.events)}
+                    {renderEventsByDay(day.events)}
                   </div>
                 </td>
               ))}
