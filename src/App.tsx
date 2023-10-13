@@ -20,6 +20,8 @@ const exampleEvents: { [key: string]: string[] } = {
   ],
   '2023-10-27': ['Example meeting', 'Two meetings in 1 day'],
   '2023-11-01': ['All Saints Day'],
+  '2023-12-30': ['An event in the far future'],
+  '2024-01-01': ['Happy New Year!'],
 }
 
 function App() {

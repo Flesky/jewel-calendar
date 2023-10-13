@@ -1,7 +1,7 @@
 
 This is a calendar component built with React, Tailwind CSS, and dayjs.
 
-# Features
+## Features
 
 - Uses React, Tailwind CSS, and dayjs
 - Displays current date
@@ -9,7 +9,21 @@ This is a calendar component built with React, Tailwind CSS, and dayjs.
 - Navigation buttons
 - Events list
 
-# How to use
+## How to run
+
+* Install dependencies:
+
+    ```
+    npm install
+    ```
+  
+* Run the development server:
+
+    ```
+    npm run dev
+    ```
+
+## How to use
 
 * To integrate to your application, install `dayjs`:
 
