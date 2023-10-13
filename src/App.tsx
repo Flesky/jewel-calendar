@@ -75,7 +75,6 @@ function App() {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-chevron-left"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -91,11 +90,10 @@ function App() {
           </button>
           <button
             onClick={() => setMonth(month.add(1, 'month'))}
-            className="-ml-[1px] rounded-r-lg border px-2 py-1 hover:bg-blue-100"
+            className="ml-[-1px] rounded-r-lg border px-2 py-1 hover:bg-blue-100"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="icon icon-tabler icon-tabler-chevron-right"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -112,7 +110,7 @@ function App() {
 
           <button
             onClick={() => setMonth(dayjs())}
-            className="ml-4 rounded-lg border px-3 py-1 font-semibold"
+            className="ml-4 rounded-lg border px-3 py-1 font-semibold  hover:bg-blue-100"
           >
             Today
           </button>
